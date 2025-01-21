@@ -10,6 +10,7 @@ public class yLookscript : MonoBehaviour
     private void Update()
     {
         yMouse = Input.GetAxis("Mouse Y") * ySens;
-        transform.Rotate(Time.deltaTime * -yMouse * Vector3.right);
+        transform.Rotate(Time.fixedDeltaTime * -yMouse * Vector3.right);
+        Mathf.Clamp(transform.rotation.y, -90, 90);
     }  
 }
