@@ -7,15 +7,15 @@ using UnityEngine.AI;
 public class EnemyStats : EnemyBase
 {
     private NavMeshAgent enemy;
-    private Transform player;
+    private GameObject player;
     private void Start()
     {
         enemy = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player").GetComponent<Transform>();
+        player = GameObject.Find("Player");
     }
     private void Update()
     {
-        enemy.SetDestination(player.position);
+        enemy.SetDestination(player.transform.position);
         enemy.speed = speed;
     }
     private void OnTriggerEnter(Collider collider)
@@ -40,7 +40,7 @@ public class EnemyStats : EnemyBase
 
     IEnumerator Attack()
     {
+        // DealDamage();
         yield return new WaitForSeconds(1);
-        DealDamage();
     }
 }

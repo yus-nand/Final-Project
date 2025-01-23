@@ -4,25 +4,28 @@ using UnityEngine;
 using TMPro;
 
 public class Player : MonoBehaviour
-{
-    public static Player Instance;
+{   
     public float horizontalLookSens = 100f;
+    public int score = 0;
     // public float jumpSpeed = 1f;
-    public TextMeshProUGUI healthText;
     public LayerMask layerMask;
     public float moveSpeed;
-    public int playerHealth;
+    private int playerHealth = 100;
     public bool isGrounded;
+    private TextMeshProUGUI scoreText;
+    private TextMeshProUGUI healthText;
     private void Start()
     {
-        healthText.text = "Health Left: " + playerHealth;
         Cursor.lockState = CursorLockMode.Locked;
+        healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
+        scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        UpdateHealthText(0);
     }
     private void Update()
     {
         Movement();
         Look();
-        healthText.text = "Health Left: " + playerHealth;
+        scoreText.text = "Score: "+score;
         // Jump();
     }
     private void Movement()
@@ -46,6 +49,18 @@ public class Player : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * Time.fixedDeltaTime * horizontalLookSens;
         transform.Rotate(Vector3.up * mouseX);
+    }
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Player took damage");
+        playerHealth = playerHealth - damage;
+        Debug.Log(playerHealth + ", " +damage);
+        UpdateHealthText(damage);
+    }
+    private void UpdateHealthText(int damage)
+    {
+        Debug.Log("Updating health text");
+        healthText.text = "Health Left: " + (playerHealth - damage);
     }
     // private void Jump()
     // {

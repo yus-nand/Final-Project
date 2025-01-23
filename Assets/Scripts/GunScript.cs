@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GunScript : MonoBehaviour
 {
-    public float damage = 10f;
+    public EnemyScript hitEnemy;
+    public int damage = 10;
     public float gunRange = 100f;
 
     private void OnDrawGizmos()
@@ -27,8 +28,17 @@ public class GunScript : MonoBehaviour
         {
             if(hit.transform.tag == "Enemy")
             {
-                Debug.Log("We hit " + hit.transform.name);
-                hit.transform.GetComponent<EnemyStats>().TakeDamage(damage);
+                hitEnemy = hit.transform.GetComponent<EnemyScript>();
+                if(hitEnemy is BigGuy)
+                {
+                    hit.transform.GetComponent<BigGuy>().TakeDamage(damage);
+                    Debug.Log("We hit " + hit.transform.name);
+                }
+                else if(hitEnemy is SmallGuy)
+                {
+                    hit.transform.GetComponent<SmallGuy>().TakeDamage(damage);
+                    Debug.Log("We hit " + hit.transform.name);
+                }
             }
         }
     }

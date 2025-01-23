@@ -8,8 +8,8 @@ public class EnemyBase : MonoBehaviour
     public int damage = 5;
     public float speed = 10f;
 
-    public void DealDamage()
-    {
-        Player.Instance.playerHealth -= damage;
-    }
+    // public void DealDamage()
+    // {
+    //     Player.Instance.playerHealth -= damage;
+    // }
 }
