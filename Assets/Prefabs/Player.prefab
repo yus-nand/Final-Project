@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3035576307502175762}
   - component: {fileID: 3134439230879211480}
   - component: {fileID: 3517567057832561236}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,8 @@ GameObject:
   - component: {fileID: 4491173241304444619}
   - component: {fileID: 5110315354232454410}
   - component: {fileID: 1413708977242895069}
-  m_Layer: 0
+  - component: {fileID: 1186101786458236196}
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -110,13 +111,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2544029694347472563}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.025021821, y: -0, z: -0, w: 0.9996869}
-  m_LocalPosition: {x: 0.026572393, y: 0.6661186, z: 0.13079834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.026572393, y: 0.65, z: 0.13079834}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6742650960500107632}
-  m_LocalEulerAnglesHint: {x: 2.868, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4491173241304444619
 Camera:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 117
+    m_Bits: 125
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -189,6 +190,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ySens: 70
+--- !u!114 &1186101786458236196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2544029694347472563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c189da70c89682c4b8b281b7adb23d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEnemy: {fileID: 0}
+  damage: 10
+  gunRange: 100
 --- !u!1 &3175457527511007199
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +219,7 @@ GameObject:
   - component: {fileID: 671870443277683895}
   - component: {fileID: 4711025594991863658}
   - component: {fileID: 1385910732499864467}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -218,10 +234,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3175457527511007199}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 8.23, y: 17, z: -36.78}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8909991940353898562}
   - {fileID: 3035576307502175762}
@@ -344,7 +360,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &9119109503309291921
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,9 +372,8 @@ GameObject:
   - component: {fileID: 216185597860940537}
   - component: {fileID: 8376440576118718573}
   - component: {fileID: 6838704275819656489}
-  - component: {fileID: 4674043129546331112}
   - component: {fileID: 3520144808883797890}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +389,7 @@ Transform:
   m_GameObject: {fileID: 9119109503309291921}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000013709068, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5261001, y: 0.2800007, z: 0.7459}
+  m_LocalPosition: {x: 0.8, y: 0.19, z: 0.91}
   m_LocalScale: {x: 0.16573791, y: 0.17971137, z: 0.45064163}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -430,21 +445,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4674043129546331112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9119109503309291921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c189da70c89682c4b8b281b7adb23d3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitEnemy: {fileID: 0}
-  damage: 10
-  gunRange: 100
 --- !u!114 &3520144808883797890
 MonoBehaviour:
   m_ObjectHideFlags: 0

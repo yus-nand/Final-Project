@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Profiling;
 
 public class Player : MonoBehaviour
 {   
@@ -14,11 +15,13 @@ public class Player : MonoBehaviour
     public bool isGrounded;
     private TextMeshProUGUI scoreText;
     private TextMeshProUGUI healthText;
+    private new Rigidbody rigidbody;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        rigidbody = GetComponent<Rigidbody>();
         UpdateHealthText(0);
     }
     private void Update()
@@ -26,10 +29,17 @@ public class Player : MonoBehaviour
         Movement();
         Look();
         scoreText.text = "Score: "+score;
-        // Jump();
+    }
+    private void FixedUpdate()
+    {
+        if(Input.GetKeyDown("space") && isGrounded)
+        {
+            Jump();
+        }
     }
     private void Movement()
     {
+        // Profiler.BeginSample("Movement");
         if(Input.GetKey("left shift"))
         {
             moveSpeed = 30;
@@ -44,6 +54,7 @@ public class Player : MonoBehaviour
 
         Vector3 move = new Vector3(horizontal, 0, vertical);
         transform.Translate(move * Time.fixedDeltaTime * 5f);
+        // Profiler.EndSample();
     }
     private void Look()
     {
@@ -60,18 +71,11 @@ public class Player : MonoBehaviour
     private void UpdateHealthText(int damage)
     {
         Debug.Log("Updating health text");
-        healthText.text = "Health Left: " + (playerHealth - damage);
+        healthText.text = "Health Left: " + playerHealth;
     }
-    // private void Jump()
-    // {
-    //     isGrounded = Physics.Raycast(transform.position - Vector3.down, Vector3.down, 5f, layerMask);
-    //     if(Input.GetKeyDown("space") && isGrounded)
-    //     {
-    //         transform.Translate(Vector3.up * 5);
-    //     }
-    //     else if(!isGrounded)
-    //     {
-    //         transform.Translate(Vector3.down * 3);
-    //     }
-    // }
+    private void Jump()
+    {
+        rigidbody.AddForce(Vector3.up * 50f, ForceMode.Impulse);
+        isGrounded = false;
+    }
 }
