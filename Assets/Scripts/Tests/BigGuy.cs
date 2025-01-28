@@ -14,7 +14,7 @@ public class BigGuy : EnemyScript
     {
         health = 50;
         damage = 10;
-        speed = 2f;
+        speed = 1f;
         xp = 100;
         attackInterval = 1.5f;
         navMesh = GetComponent<NavMeshAgent>();
@@ -45,7 +45,7 @@ public class BigGuy : EnemyScript
         Move();
         if(health <= 0 && !isDead)
         {
-            navMesh.speed = Mathf.Lerp(0, 2, 1);
+            navMesh.speed = Mathf.Lerp(0f, 2f, 1);
             // Player.Instance.score += xp;
             // enemyAnimator.SetBool("seekingPlayer", false);
             // enemyAnimator.SetBool("isNearPlayer", true);

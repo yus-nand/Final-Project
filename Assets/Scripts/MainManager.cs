@@ -14,12 +14,15 @@ public class MainManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject optionsScreen;
     [SerializeField] private GameObject ColorButtons;
+    [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject playerPF;
     [SerializeField] private GameObject[] enemies;
     [SerializeField] private TextMeshProUGUI startNextWaveText;
     private Image crossHairImage;
+    private Player player;
     private bool isWaveComplete = false;
     private bool canStartNextWave = false;
+    private bool gameOver = false;
     private int waveNumber = 0;
     private int enemiesToSpawn = 3;
     private int maxRange = 0;
@@ -33,6 +36,7 @@ public class MainManager : MonoBehaviour
         startNextWaveText = GameObject.Find("StartNextWaveText").GetComponent<TextMeshProUGUI>();
         startNextWaveText.text = "Press Q to start next wave";
         startNextWaveText.enabled = false;
+        player = GameObject.Find("Player").GetComponent<Player>();
         StartCoroutine(SpawnEnemyWave());
         waveNumber++;
     }
@@ -70,7 +74,14 @@ public class MainManager : MonoBehaviour
             isWaveComplete = false;
             StartCoroutine(SpawnEnemyWave());
         }
-
+        gameOver = isGameOver();
+        if(gameOver)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
+            gameOverScreen.SetActive(true);
+            crossHairImage.enabled = false;
+        }
     }
     public void LoadPauseScreen()
     {
@@ -126,6 +137,13 @@ public class MainManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+    }
+    private bool isGameOver()
+    {
+        if(player.playerHealth <= 0)
+            return true;
+        else
+            return false;
     }
     IEnumerator SpawnEnemyWave()
     {

@@ -11,13 +11,14 @@ public class Player : MonoBehaviour
     // public float jumpSpeed = 1f;
     public LayerMask layerMask;
     public float moveSpeed;
-    private int playerHealth = 100;
+    public int playerHealth {get; set;}
     public bool isGrounded;
     private TextMeshProUGUI scoreText;
     private TextMeshProUGUI healthText;
     private new Rigidbody rigidbody;
     private void Start()
     {
+        playerHealth = 100;
         Cursor.lockState = CursorLockMode.Locked;
         healthText = GameObject.Find("HealthText").GetComponent<TextMeshProUGUI>();
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
@@ -29,6 +30,11 @@ public class Player : MonoBehaviour
         Movement();
         Look();
         scoreText.text = "Score: "+score;
+        if(playerHealth <= 0)
+        {
+            scoreText.enabled = false;
+            healthText.enabled = false;
+        }
     }
     private void FixedUpdate()
     {
@@ -42,11 +48,11 @@ public class Player : MonoBehaviour
         // Profiler.BeginSample("Movement");
         if(Input.GetKey("left shift"))
         {
-            moveSpeed = 30;
+            moveSpeed = 10;
         }
         else
         {
-            moveSpeed = 20;
+            moveSpeed = 7;
         }
 
         float horizontal = Input.GetAxis("Horizontal") * Time.fixedDeltaTime * moveSpeed;
