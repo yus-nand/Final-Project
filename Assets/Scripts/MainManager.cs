@@ -25,13 +25,14 @@ public class MainManager : MonoBehaviour
     private bool gameOver = false;
     private int waveNumber = 0;
     private int enemiesToSpawn = 3;
-    private int maxRange = 0;
+    // private int maxRange = 0;
     // private void Awake()
     // {
     //     playerInstance = Instantiate(playerPF, new Vector3(3, 17, -34), playerPF.transform.rotation);
     // }
     private void Start()
     {
+        Time.timeScale = 1f;
         crossHairImage = GameObject.Find("CrossHair").GetComponent<Image>();
         startNextWaveText = GameObject.Find("StartNextWaveText").GetComponent<TextMeshProUGUI>();
         startNextWaveText.text = "Press Q to start next wave";
@@ -51,6 +52,8 @@ public class MainManager : MonoBehaviour
         {
             LoadPauseScreen();
         }
+        if(Input.GetKeyDown(KeyCode.U))
+            Time.timeScale = 1f;
         Application.targetFrameRate = 120;
         if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !isWaveComplete)
         {
@@ -61,7 +64,6 @@ public class MainManager : MonoBehaviour
             startNextWaveText.enabled = true;
             if(waveNumber == 3)
             {
-                maxRange++;
                 Debug.Log("Max Range increased");
             }
             canStartNextWave = true;
@@ -82,6 +84,43 @@ public class MainManager : MonoBehaviour
             gameOverScreen.SetActive(true);
             crossHairImage.enabled = false;
         }
+    }
+    private bool isGameOver()
+    {
+        if(player.playerHealth <= 0)
+            return true;
+        else
+            return false;
+    }
+    IEnumerator SpawnEnemyWave()
+    {
+        int enemyIndex = 0;
+        // bool waveNumberIncreased = false;
+        // if(waveNumber == 3 && !waveNumberIncreased)
+        // {
+        //     enemyIndex++;
+        //     Debug.Log("Max Range increased");
+        //     enemiesToSpawn = 1;
+        //     waveNumberIncreased = true;
+        // }
+        // int enemyIndex = Random.Range(0, maxRange);
+        for(int i = 0; i < enemiesToSpawn; i++)
+        {
+            Instantiate(enemies[enemyIndex], new Vector3(-11, 15, -31), enemies[enemyIndex].transform.rotation);
+            yield return new WaitForSeconds(1f);
+        }    
+        // while(true && GameObject.FindGameObjectsWithTag("Enemy").Length != enemiesToSpawn)
+        // {
+        //     int enemyIndex = Random.Range(0, maxRange);
+        //     // for(int i = 0; i < enemiesToSpawn; i++)
+        //     // {
+        //     //     Instantiate(enemies[enemyIndex], new Vector3(-11, 15, -31), enemies[enemyIndex].transform.rotation);
+        //     //     yield return new WaitForSeconds(1f);
+        //     // }    
+        //     Instantiate(enemies[enemyIndex], new Vector3(-11, 15, -31), enemies[enemyIndex].transform.rotation);
+        //     yield return new WaitForSeconds(1f);
+        //     SpawnEnemyWave();
+        // }
     }
     public void LoadPauseScreen()
     {
@@ -138,32 +177,5 @@ public class MainManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
-    private bool isGameOver()
-    {
-        if(player.playerHealth <= 0)
-            return true;
-        else
-            return false;
-    }
-    IEnumerator SpawnEnemyWave()
-    {
-        int enemyIndex = Random.Range(0, maxRange);
-        for(int i = 0; i < enemiesToSpawn; i++)
-        {
-            Instantiate(enemies[enemyIndex], new Vector3(-11, 15, -31), enemies[enemyIndex].transform.rotation);
-            yield return new WaitForSeconds(1f);
-        }    
-        // while(true && GameObject.FindGameObjectsWithTag("Enemy").Length != enemiesToSpawn)
-        // {
-        //     int enemyIndex = Random.Range(0, maxRange);
-        //     // for(int i = 0; i < enemiesToSpawn; i++)
-        //     // {
-        //     //     Instantiate(enemies[enemyIndex], new Vector3(-11, 15, -31), enemies[enemyIndex].transform.rotation);
-        //     //     yield return new WaitForSeconds(1f);
-        //     // }    
-        //     Instantiate(enemies[enemyIndex], new Vector3(-11, 15, -31), enemies[enemyIndex].transform.rotation);
-        //     yield return new WaitForSeconds(1f);
-        //     SpawnEnemyWave();
-        // }
-    }
+    
 }

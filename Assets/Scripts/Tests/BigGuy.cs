@@ -8,17 +8,18 @@ public class BigGuy : EnemyScript
     public bool isHit = false;
     [SerializeField] private Animator enemyAnimator;
     private NavMeshAgent navMesh;
-    private new Renderer renderer;
+    // private new Renderer renderer;
     private bool isDead = false;
     private void Start()
     {
+        Move();
         health = 50;
         damage = 10;
         speed = 1f;
         xp = 100;
         attackInterval = 1.5f;
         navMesh = GetComponent<NavMeshAgent>();
-        renderer = GetComponent<Renderer>();
+        // renderer = GetComponent<Renderer>();
     }
     private void OnTriggerEnter(Collider collider)
     {
@@ -64,6 +65,7 @@ public class BigGuy : EnemyScript
         if(navMesh.pathPending)
         {
             enemyAnimator.SetBool("seekingPlayer", true);
+            audioSource.Play();
         }
     }
     public override void TakeDamage(int damage)

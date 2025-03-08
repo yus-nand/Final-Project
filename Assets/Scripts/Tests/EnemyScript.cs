@@ -9,10 +9,15 @@ abstract public class EnemyScript : MonoBehaviour
     protected int xp;
     protected float speed;
     protected float attackInterval;
+    [SerializeField] protected AudioSource audioSource;
     // public virtual void Attack(GameObject gameObject, int damage)
     // {
     //     
     // }
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public void GiveXP(int xp)
     {
         Player player = GameObject.Find("Player").GetComponent<Player>();

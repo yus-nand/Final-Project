@@ -48,11 +48,11 @@ public class Player : MonoBehaviour
         // Profiler.BeginSample("Movement");
         if(Input.GetKey("left shift"))
         {
-            moveSpeed = 10;
+            moveSpeed = 20f;
         }
         else
         {
-            moveSpeed = 7;
+            moveSpeed = 10f;
         }
 
         float horizontal = Input.GetAxis("Horizontal") * Time.fixedDeltaTime * moveSpeed;

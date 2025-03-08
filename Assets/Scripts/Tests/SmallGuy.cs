@@ -8,17 +8,17 @@ public class SmallGuy : EnemyScript
     public bool isHit = false;
     [SerializeField] private Animator enemyAnimator;
     private NavMeshAgent navMesh;
-    private new Renderer renderer;
+    // private new Renderer renderer;
     private bool isDead = false;
     private void Start()
     {
         damage = 2;
         health = 20;
-        speed = 3f;
+        speed = 1.5f;
         xp = 20;
         attackInterval = 0.5f;
         navMesh = GetComponent<NavMeshAgent>();
-        renderer = GetComponent<Renderer>();
+        // renderer = GetComponent<Renderer>();
     }
     private void OnTriggerEnter(Collider collider)
     {
